@@ -3,6 +3,7 @@ package controllers
 import (
 	"errors"
 	"fmt"
+	"net/http"
 	"strconv"
 	"time"
 	"uniswap-api-graphql/models"
@@ -11,7 +12,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-func GetPoolsFromAssetId(id string) (models.PoolResponse, error) {
+func GetPoolsFromAssetId(id string) (models.PoolResponse, error, int) {
 	queryToken0 := fmt.Sprintf("{ pools (where: { token0: %q }) { id } }", id)
 	queryToken1 := fmt.Sprintf("{ pools (where: { token1: %q }) { id } }", id)
 
@@ -31,7 +32,7 @@ func GetPoolsFromAssetId(id string) (models.PoolResponse, error) {
 	err := g.Wait()
 
 	if err != nil {
-		return models.PoolResponse{}, err
+		return models.PoolResponse{}, err, http.StatusInternalServerError
 	}
 
 	// TODO! Move this mapping to a ResponseBuilder
@@ -41,14 +42,14 @@ func GetPoolsFromAssetId(id string) (models.PoolResponse, error) {
 	pools := append(poolsToken0.Pools, poolsToken1.Pools...)
 	poolResponse := models.PoolResponse{Pools: pools}
 
-	return poolResponse, err
+	return poolResponse, err, http.StatusInternalServerError
 }
 
-func GetVolumeFromAssetIdWithRangeTime(id string, startAt string, endAt string) (models.SwapResponse, error) {
-	err_check := checkParams(startAt, endAt)
+func GetVolumeFromAssetIdWithRangeTime(id string, startAt string, endAt string) (models.SwapResponse, error, int) {
+	errCheck, errStatus := checkParams(startAt, endAt)
 
-	if err_check != nil {
-		return models.SwapResponse{}, err_check
+	if errCheck != nil {
+		return models.SwapResponse{}, errCheck, errStatus
 	}
 
 	queryToken0 := fmt.Sprintf("{ swaps (where: { token0: %q timestamp_gte: %s timestamp_lte: %s }) { amountUSD } }", id, startAt, endAt)
@@ -67,7 +68,7 @@ func GetVolumeFromAssetIdWithRangeTime(id string, startAt string, endAt string) 
 	err := g.Wait()
 
 	if err != nil {
-		return models.SwapResponse{}, err
+		return models.SwapResponse{}, err, errStatus
 	}
 
 	totalAmount := 0.0
@@ -84,35 +85,35 @@ func GetVolumeFromAssetIdWithRangeTime(id string, startAt string, endAt string) 
 
 	swapsResponse := models.SwapResponse{Amount: totalAmount, Currency: "USD"}
 
-	return swapsResponse, err
+	return swapsResponse, err, errStatus
 }
 
-func checkParams(startAt string, endAt string) error {
+func checkParams(startAt string, endAt string) (error, int) {
 	if startAt == "" {
-		return errors.New("Start date is required")
+		return errors.New("Start date is required"), http.StatusBadRequest
 	}
 
 	if endAt == "" {
-		return errors.New("End date is required")
+		return errors.New("End date is required"), http.StatusBadRequest
 	}
 
 	start, err_start := strconv.ParseInt(startAt, 10, 64)
 	end, err_end := strconv.ParseInt(endAt, 10, 64)
 
 	if err_start != nil {
-		return errors.New("Start date is not valid. Please modify it")
+		return errors.New("Start date is not valid. Please modify it"), http.StatusBadRequest
 	}
 
 	if err_end != nil {
-		return errors.New("End date is not valid. Please modify it")
+		return errors.New("End date is not valid. Please modify it"), http.StatusBadRequest
 	}
 
 	unix_start := time.Unix(start, 0)
 	unix_end := time.Unix(end, 0)
 
 	if unix_start.After(unix_end) {
-		return errors.New("Start date is greater than End Date. Please modify it")
+		return errors.New("Start date is greater than End Date. Please modify it"), http.StatusBadRequest
 	}
 
-	return nil
+	return nil, 0
 }
