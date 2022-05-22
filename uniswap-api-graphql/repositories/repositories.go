@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -52,7 +53,10 @@ func Execute(query string, response interface{}) error {
 		return errors.New("Unable to reach data")
 	}
 
-	json.Unmarshal([]byte(body), &response)
+	var v interface{}
+	json.Unmarshal([]byte(body), &v)
+
+	fmt.Println(v)
 
 	return nil
 }

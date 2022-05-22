@@ -1,6 +1,8 @@
 package models
 
-type SwapResponse struct {
-	Amount   float64 `json:"amount"`
-	Currency string  `json:"currency"`
+type SwapsResponse struct {
+	Swaps []struct {
+		AmountUSD string `json:"amountUSD,omitempty"`
+		Id        string `json:"id,omitempty"`
+	} `json:"swaps"`
 }

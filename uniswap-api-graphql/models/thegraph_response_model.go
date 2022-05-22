@@ -8,8 +8,10 @@ type PoolTheGraphResponse struct {
 
 type SwapTheGraphResponse struct {
 	Data struct {
-		Swaps []struct {
-			AmountUSD string `json:"amountUSD"`
-		} `json:"swaps"`
+		SwapsResponse
 	} `json:"data"`
+}
+
+type TransactionsTheGraphResponse struct {
+	Data interface{} `json:"data"`
 }
