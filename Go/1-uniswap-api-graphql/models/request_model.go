@@ -1,0 +1,6 @@
+package models
+
+type RequestParams struct {
+	Query     string                 `json:"query"`
+	Variables map[string]interface{} `json:"variables"`
+}
