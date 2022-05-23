@@ -1,6 +1,6 @@
-# Welcome tom my portfolio 👩🏼‍💻
+# Welcome to my portfolio 👩🏼‍💻
 
-After some time, I've decided to upload all the project i've been playing with.
+After some time, I've decided to upload all the projects iI've been playing with.
 
 
 ## 📚 Categories
@@ -11,11 +11,12 @@ My portfolio is divided in the next categories:
 * Go
 * Web3
 
+- - -
 
 ### 🔹 Solidity
-Here you can find some Smart Contracts I've developed from scratch
+Here you can find some Smart Contracts I've developed from scratch.
 
-
+- - -
 
 ### 🔹 Go
 **uniswap-api-graphql**
@@ -27,14 +28,15 @@ Here you can find an API Rest Service to read data from [TheGraph](https://thegr
 * Uniswap
 * Graphql
 
-
+- - -
 
 ### 🔹 Web3
 **miting-dapp [WIP]**
 
-Here you can find a Dapp to ming "my own" collection of NFTs.
+Here you can find a Dapp to mint a "borrowed" collection of NFTs.
 
 🚀 Tech Stack:
 * React
 * Next
 * web3.js
+
