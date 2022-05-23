@@ -4,7 +4,7 @@ import { useWeb3React } from '@web3-react/core';
 import { connector, getContract } from '../config/index.js';
 import BerenuABI from '../abis/Berenu.json';
 
-import './index.css'
+import styles from './HomePage.module.scss'
 
 import Footer from '../components/Footer/Footer.jsx';
 import Title from '../components/Title/Title.jsx';
@@ -56,7 +56,7 @@ export default function HomePage() {
   return (
     <>
       <Title></Title>
-      <div className="HomePage">
+      <div className={styles.HomePage}>
         {/* <button onClick={mint}>Mint</button>
         {
           active 

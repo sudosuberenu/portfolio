@@ -1,5 +1,4 @@
 import '../styles/globals.scss';
-import '../styles/HomePage.scss';
 
 import { getLibrary } from '../config/index.js';
 import { Web3ReactProvider } from '@web3-react/core';
