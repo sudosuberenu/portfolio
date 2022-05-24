@@ -1,11 +1,13 @@
 .HomePage {
-  height: 95vh;
-  /* min-height: 95vh;
-  min-width: 100vh; */
+  background-image: url('../public/assets/background.png');
+  background-size: cover;
+  background-position: center center;
+  background-color: white;
+
+  height: 90vh;
   font-size: calc(10px + 2vmin);
   color: white;
-  background: rgb(2,3,51);
-  background: linear-gradient(90deg, rgba(2,3,51,1) 0%, rgba(58,11,143,1) 47%, rgba(2,3,51,1) 100%);
+  
   display: flex;
   text-align: center;
   flex-direction: column;

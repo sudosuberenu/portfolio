@@ -1,10 +1,10 @@
 import React from 'react';
-// import './Header.css';
+import styles from './Title.module.scss';
 
 class Title extends React.Component {
   render() {
     return (
-      <section className="title">
+      <section className={styles.Title}>
         TITLE
       </section>
     )
