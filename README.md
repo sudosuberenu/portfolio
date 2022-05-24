@@ -1,11 +1,11 @@
 # Welcome to my portfolio 👩🏼‍💻
 
-After some time, I've decided to upload all the projects iI've been playing with.
+After some time, I've decided to upload all the projects I've been playing with.
 
 
 ## 📚 Categories
 
-My portfolio is divided in the next categories:
+My portfolio is divided in 3 categories:
 
 * Solidity 
 * Go
