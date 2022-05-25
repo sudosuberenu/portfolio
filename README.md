@@ -36,7 +36,6 @@ Here you can find an API Rest Service to read data from [TheGraph](https://thegr
 Here you can find a Dapp to mint a "borrowed" collection of NFTs.
 
 🚀 Tech Stack:
-* React
-* Next
-* web3.js
+* Frontend: React, Next.js
+* Blockchain API: Ethers.js
 

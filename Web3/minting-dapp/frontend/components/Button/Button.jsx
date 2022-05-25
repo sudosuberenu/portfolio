@@ -1,54 +1,36 @@
-import React from 'react';
-// import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useWeb3React } from '@web3-react/core';
+import { getContract } from '../../config/index.js';
 
+
+import BerenuABI from '../../abis/Berenu.json';
 import styles from './Button.module.scss';
-// import { BuyerContext } from '../../context/context';
 
-class Button extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+export default function Button() {
 
-  async pay(nft) {
+  const {
+    library,
+    activate, 
+    active, 
+    deactivate,
+    error, 
+    account,
+    chainId,
+  } = useWeb3React();
+
+  const mint = async () => {
     try {
-      const web3 = window.web3;
-      const { buyer, title, description } = nft;
+      const contract = await getContract("0x8e2Ba46B939bf3C5Ebb51B7C18f438AB3b0c5a38", BerenuABI.abi, library);
+      const result = await contract.price({from: account});
 
-      const contract = {}
-
-      await contract.methods
-      .payToMint(title, description)
-      .send({ from: buyer, value: 100 });
+      console.log('result', result/1e18)
 
     } catch (error) {
-
-    }
-  }
-
-  async mint() {
-    try {
-      // const response = await axios.get("https://bafybeidfpvjszubegtoomoknmc7zcqnay7noteadbwxktw46guhdeqohrm.ipfs.infura-ipfs.io/1.json");
-      const web3 = window.web3;
-      // const { buyer, title, description } = nft;
-
-      const contract = {}
-
-      
-
-      await contract.methods.mint().send({ from: BuyerContext, value: 100 });
-
-    } catch (error) {
-
+      console.log(error)
     }
   }
   
-  render() {
-    return (
-      <button className={styles.Button} onClick={this.mint}>Mint</button>
-    )
-    // <BuyerContext.Consumer>
-    // </BuyerContext.Consumer> 
-  }
+  return (
+    <button className={styles.Button} onClick={mint}>Mint</button>
+  )
 }
-
-export default Button;
