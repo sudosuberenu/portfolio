@@ -5,7 +5,7 @@ class Title extends React.Component {
   render() {
     return (
       <section className={styles.Title}>
-        TITLE
+        Welcome
       </section>
     )
   }

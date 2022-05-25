@@ -5,7 +5,8 @@ class Footer extends React.Component {
   render() {
     return (
       <footer className={styles.Footer}>
-        Footer
+        <p>Belén Iniesta - 2022</p>
+        <p>Social Icons</p>
       </footer>
     )
   }

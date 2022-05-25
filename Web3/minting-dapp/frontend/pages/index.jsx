@@ -6,9 +6,9 @@ import BerenuABI from '../abis/Berenu.json';
 
 import styles from './HomePage.module.scss'
 
-import Footer from '../components/Footer/Footer.jsx';
 import Title from '../components/Title/Title.jsx';
-// import Footer from './components/Footer/Footer';
+import Button from '../components/Button/Button.jsx';
+import Footer from '../components/Footer/Footer.jsx';
 
 export default function HomePage() {
   const {
@@ -57,8 +57,8 @@ export default function HomePage() {
     <>
       <Title></Title>
       <div className={styles.HomePage}>
-        {/* <button onClick={mint}>Mint</button>
-        {
+        <Button />
+        {/* {
           active 
             ? 
               <>

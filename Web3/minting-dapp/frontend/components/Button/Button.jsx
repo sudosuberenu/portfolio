@@ -1,7 +1,8 @@
 import React from 'react';
-import axios from 'axios';
-import './Button.css';
-import { BuyerContext } from '../../context/context';
+// import axios from 'axios';
+
+import styles from './Button.module.scss';
+// import { BuyerContext } from '../../context/context';
 
 class Button extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Button extends React.Component {
 
   async mint() {
     try {
-      const response = await axios.get("https://bafybeidfpvjszubegtoomoknmc7zcqnay7noteadbwxktw46guhdeqohrm.ipfs.infura-ipfs.io/1.json");
+      // const response = await axios.get("https://bafybeidfpvjszubegtoomoknmc7zcqnay7noteadbwxktw46guhdeqohrm.ipfs.infura-ipfs.io/1.json");
       const web3 = window.web3;
       // const { buyer, title, description } = nft;
 
@@ -42,10 +43,11 @@ class Button extends React.Component {
   }
   
   render() {
-    return
-    <BuyerContext.Consumer>
-      <button className="button" onClick={this.mint}>Mint</button>
-    </BuyerContext.Consumer> 
+    return (
+      <button className={styles.Button} onClick={this.mint}>Mint</button>
+    )
+    // <BuyerContext.Consumer>
+    // </BuyerContext.Consumer> 
   }
 }
 
