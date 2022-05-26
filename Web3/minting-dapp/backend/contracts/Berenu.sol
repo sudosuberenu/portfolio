@@ -17,10 +17,6 @@ contract Berenu is ERC721Enumerable, Ownable {
     // baseURI = _baseURI;
   }
 
-  function hello() external pure returns (string memory) {
-    return "HELLO";
-  }
-
   function mint() external payable {
     require(ERC721Enumerable.totalSupply() < maxSupply, "All the NFT's have been already minted");
     require(msg.value == price, "Error, you should send 0.1 Ether");
