@@ -1,14 +1,9 @@
-import React from 'react';
 import styles from './Title.module.scss';
 
-class Title extends React.Component {
-  render() {
-    return (
-      <section className={styles.Title}>
-        Welcome
-      </section>
-    )
-  }
+export default function Title() {
+  return (
+    <section className={styles.Title}>
+      Welcome
+    </section>
+  )
 }
-
-export default Title;

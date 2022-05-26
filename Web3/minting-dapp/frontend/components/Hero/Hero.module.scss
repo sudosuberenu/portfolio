@@ -1,0 +1,37 @@
+.hero {
+  width: 60vw;
+  height: 60vh;
+  border-radius: 10px;
+  background-color: white;
+  padding: 1rem;
+  color: black;
+
+  &__header {
+    background-color: pink;
+  }
+
+  &__body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.nav {
+  text-align: right;
+
+  &__item {
+    cursor: pointer;
+    padding: 1rem;
+    background-color: grey;
+    display: inline;
+    
+    &:hover {
+      background-color: beige;
+    }
+
+    &--active {
+      background: green;
+    }
+  }
+}
