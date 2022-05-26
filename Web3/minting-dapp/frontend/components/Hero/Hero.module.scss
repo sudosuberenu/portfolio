@@ -1,16 +1,15 @@
 .hero {
-  width: 60vw;
-  height: 60vh;
-  border-radius: 10px;
-  background-color: white;
-  padding: 1rem;
   color: black;
-
+  
   &__header {
-    background-color: pink;
   }
 
   &__body {
+    background-color: white;
+    width: 60vw;
+    padding:1rem;
+    border-radius: 10px 0 10px 10px;
+
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -18,20 +17,29 @@
 }
 
 .nav {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
 
   &__item {
+    display: inline;
     cursor: pointer;
     padding: 1rem;
-    background-color: grey;
-    display: inline;
+    background-color: white;
     
     &:hover {
       background-color: beige;
     }
 
-    &--active {
-      background: green;
+    &--deactive {
+      background: rgb(191, 191, 191);
+    }
+
+    &--first {
+      border-radius: 10px 0 0 0;
+    }
+
+    &--last {
+      border-radius: 0 10px 0 0;
     }
   }
 }
