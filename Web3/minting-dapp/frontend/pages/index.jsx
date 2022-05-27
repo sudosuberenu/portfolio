@@ -12,26 +12,25 @@ import Footer from '../components/Footer/Footer.jsx';
 export default function HomePage() {
   const {
     activate, 
+    active,
+    library,
+    account
   } = useWeb3React();
 
   const connect = useCallback(() => {
-    console.log('CONNECT')
     activate(connector);
-    localStorage.setItem('connected', true);
   }, [activate]);
 
 
   useEffect(()=> {
-    if (localStorage.getItem('connected') === 'true') {
       connect();
-    }
-  }, [connect]);
+  }, [connect, active]);
 
   return (
     <>
       <Title></Title>
       <div className={styles.HomePage}>
-        <Hero></Hero>
+        <Hero account={account} provider={library}></Hero>
       </div>
       <Footer></Footer>
     </>

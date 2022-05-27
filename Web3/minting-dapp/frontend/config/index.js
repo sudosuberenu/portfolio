@@ -24,7 +24,9 @@ export const getProviderOrSigner = function(library, account,) {
 }    
 
 export const getContract = async function(address, ABI, library, account) {
-  const contract = new Contract(address, ABI, getProviderOrSigner(library, account));
-  const contractDeployed = await contract.deployed();
-  return contractDeployed;
+  if (library) {
+    const contract = new Contract(address, ABI, getProviderOrSigner(library, account));
+    const contractDeployed = await contract.deployed();
+    return contractDeployed;
+  }
 }
