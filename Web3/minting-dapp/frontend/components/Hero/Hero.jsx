@@ -9,6 +9,7 @@ export default function Hero({account, provider}) {
   const [price, setPrice] = useState();
   const [totalSupply, setTotalSupply] = useState();
   const [tokensLeft, setTokensLeft] = useState();
+  const [firtsActive, setFirtsActive] = useState(true);
 
   const getPrice = useCallback(async function() {
     const contract = await getContract(provider, account);
@@ -41,26 +42,29 @@ export default function Hero({account, provider}) {
     <section className={styles.hero}>
       <div className={styles.hero__header}>
         <ul className={styles.nav} role="tablist">
-          <li className={styles.nav__item + ' ' + styles['nav__item--first']}>Mint</li>
-          <li className={styles.nav__item + ' ' + styles['nav__item--last'] + ' ' + styles['nav__item--deactive']}>Your NFT's</li>
+          <li className={styles.nav__item + ' ' + styles['nav__item--first']} onClick={ () => {setFirtsActive(true)}}>Mint</li>
+          <li className={styles.nav__item + ' ' + styles['nav__item--last'] + ' ' + styles['nav__item--deactive']} onClick={ () => {setFirtsActive(false)}}>Your NFT's</li>
         </ul>
       </div>
-      <div className={styles.hero__body}>
-        <p>NFT Price: {price} Ether</p>
-        <p> Total Supply: {totalSupply}</p>
-        <p> Number of NFT's Left: {tokensLeft}</p>
-        <Button totalSupply={totalSupply} onTotalSupplyChange={onTotalSupplyChange}/>
-      </div>
-      {/* {
-          active 
-            ? 
-              <>
-                <button onClick={disconnect}>Disconnect Wallet</button>
-                <p>You are connected to {chainId}</p>
-                <p>Your account is: {account} </p>
-              </>
-            :  <button onClick={connect}>Connect Wallet</button>
-        } */}
+      {
+        firtsActive ?
+          <div className={styles.hero__body}>
+            <p>NFT Price: {price} Ether</p>
+            <p> Total Supply: {totalSupply}</p>
+            <p> Number of NFT's Left: {tokensLeft}</p>
+            <Button totalSupply={totalSupply} onTotalSupplyChange={onTotalSupplyChange}/>
+          </div>
+          :
+          <></>
+      }
+      {
+        !firtsActive ?
+          <div className={styles.hero__body}>
+            <p>YOUR COLLECTION</p>
+          </div>
+          :
+          <></>
+      }
     </section>
   )
 }
