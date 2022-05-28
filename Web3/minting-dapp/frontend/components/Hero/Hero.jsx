@@ -26,6 +26,10 @@ export default function Hero({account, provider}) {
     }
   }, [provider]);
 
+  function onTotalSupplyChange(newValue) {   
+    setTotalSupply(newValue);
+  }
+
   useEffect(() => {
     getPrice();
     getTotalSupply();
@@ -43,7 +47,7 @@ export default function Hero({account, provider}) {
         <p>NFT Price: {price} Ether</p>
         <p> Total Supply: {totalSupply}</p>
         <p> Number of NFT's Left: 3</p>
-        <Button />
+        <Button totalSupply={totalSupply} onTotalSupplyChange={onTotalSupplyChange}/>
       </div>
       {/* {
           active 

@@ -5,8 +5,7 @@ import { getContract } from '../../config/index.js';
 import BerenuABI from '../../abis/Berenu.json';
 import styles from './Button.module.scss';
 
-export default function Button() {
-
+export default function Button({totalSupply, onTotalSupplyChange}) {
   const {
     library,
     account,
@@ -14,14 +13,10 @@ export default function Button() {
 
   const mint = async () => {
     try {
-      console.log('button', library)
       const contract = await getContract("0x8e2Ba46B939bf3C5Ebb51B7C18f438AB3b0c5a38", BerenuABI.abi, library, account);
-      const result = await contract.price({from: account});
-      const tx = await contract.mint({from: account, value: ethers.utils.parseEther("0.1")});
-
-      console.log('result', result/1e18)
-      console.log('result', tx)
-
+      await contract.mint({from: account, value: ethers.utils.parseEther("0.1")});
+      const newTotalSupply = totalSupply + 1;
+      onTotalSupplyChange(newTotalSupply);
     } catch (error) {
       console.log(error)
     }
