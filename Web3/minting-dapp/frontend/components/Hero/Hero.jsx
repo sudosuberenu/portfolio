@@ -2,16 +2,16 @@ import { useEffect, useCallback, useState } from 'react';
 import { ethers } from 'ethers';
 
 import { getContract } from '../../config/index.js';
-import BerenuABI from '../../abis/Berenu.json';
 import Button from '../Button/Button.jsx';
 import styles from './Hero.module.scss';
 
 export default function Hero({account, provider}) {
   const [price, setPrice] = useState();
   const [totalSupply, setTotalSupply] = useState();
+  const [tokensLeft, setTokensLeft] = useState();
 
   const getPrice = useCallback(async function() {
-    const contract = await getContract("0x8e2Ba46B939bf3C5Ebb51B7C18f438AB3b0c5a38", BerenuABI.abi, provider, account);
+    const contract = await getContract(provider, account);
     if (contract) {
       const result = await contract.price();
       setPrice(result/1e18);
@@ -19,10 +19,12 @@ export default function Hero({account, provider}) {
   }, [provider]);
 
   const getTotalSupply = useCallback(async function() {
-    const contract = await getContract("0x8e2Ba46B939bf3C5Ebb51B7C18f438AB3b0c5a38", BerenuABI.abi, provider, account);
+    const contract = await getContract(provider, account);
     if (contract) {
-      const result = await contract.totalSupply();
-      setTotalSupply(ethers.BigNumber.from(result).toNumber());
+      const currentTotalSuppply = await contract.totalSupply();
+      const currentMaxSupply = await contract.maxSupply();
+      setTotalSupply(ethers.BigNumber.from(currentTotalSuppply).toNumber());
+      setTokensLeft(ethers.BigNumber.from(currentMaxSupply).toNumber() - ethers.BigNumber.from(currentTotalSuppply).toNumber());
     }
   }, [provider]);
 
@@ -46,7 +48,7 @@ export default function Hero({account, provider}) {
       <div className={styles.hero__body}>
         <p>NFT Price: {price} Ether</p>
         <p> Total Supply: {totalSupply}</p>
-        <p> Number of NFT's Left: 3</p>
+        <p> Number of NFT's Left: {tokensLeft}</p>
         <Button totalSupply={totalSupply} onTotalSupplyChange={onTotalSupplyChange}/>
       </div>
       {/* {
