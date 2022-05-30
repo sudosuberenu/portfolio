@@ -11,6 +11,14 @@ export default function Hero({account, provider}) {
   const [tokensLeft, setTokensLeft] = useState();
   const [firtsActive, setFirtsActive] = useState(true);
 
+  const classNameFirtItem = firtsActive
+        ? styles.nav__item + ' ' + styles['nav__item--first']
+        : styles.nav__item + ' ' + styles['nav__item--first'] + ' ' + styles['nav__item--deactive'];
+
+  const classNameSecondItem = !firtsActive
+        ? styles.nav__item + ' ' + styles['nav__item--last']
+        : styles.nav__item + ' ' + styles['nav__item--last'] + ' ' + styles['nav__item--deactive'];      
+
   const getPrice = useCallback(async function() {
     const contract = await getContract(provider, account);
     if (contract) {
@@ -33,6 +41,10 @@ export default function Hero({account, provider}) {
     setTotalSupply(newValue);
   }
 
+  const toggle = (value, event) => {
+    setFirtsActive(value);
+  }
+
   useEffect(() => {
     getPrice();
     getTotalSupply();
@@ -42,8 +54,8 @@ export default function Hero({account, provider}) {
     <section className={styles.hero}>
       <div className={styles.hero__header}>
         <ul className={styles.nav} role="tablist">
-          <li className={styles.nav__item + ' ' + styles['nav__item--first']} onClick={ () => {setFirtsActive(true)}}>Mint</li>
-          <li className={styles.nav__item + ' ' + styles['nav__item--last'] + ' ' + styles['nav__item--deactive']} onClick={ () => {setFirtsActive(false)}}>Your NFT's</li>
+          <li className={classNameFirtItem} onClick={ () => {toggle(true)}}>Mint</li>
+          <li className={classNameSecondItem} onClick={ () => {toggle(false)}}>Your NFT's</li>
         </ul>
       </div>
       {
