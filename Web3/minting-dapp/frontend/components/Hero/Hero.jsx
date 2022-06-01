@@ -7,6 +7,7 @@ import styles from './Hero.module.scss';
 
 export default function Hero({account, provider}) {
   const [price, setPrice] = useState();
+  const [maxTotalSupply, setMaxTotalSupply] = useState();
   const [totalSupply, setTotalSupply] = useState();
   const [tokensLeft, setTokensLeft] = useState();
   const [firtsActive, setFirtsActive] = useState(true);
@@ -34,6 +35,7 @@ export default function Hero({account, provider}) {
       const currentTotalSuppply = await contract.totalSupply();
       const currentMaxSupply = await contract.maxSupply();
       setTotalSupply(ethers.BigNumber.from(currentTotalSuppply).toNumber());
+      setMaxTotalSupply(ethers.BigNumber.from(currentMaxSupply).toNumber());
       setTokensLeft(ethers.BigNumber.from(currentMaxSupply).toNumber() - ethers.BigNumber.from(currentTotalSuppply).toNumber());
     }
   }, [provider]);
@@ -78,9 +80,10 @@ export default function Hero({account, provider}) {
       {
         firtsActive ?
           <div className={styles.hero__body}>
-            <p>NFT Price: {price} Ether</p>
-            <p>Total Supply: {totalSupply}</p>
-            <p>Number of NFT's Left: {tokensLeft}</p>
+            <p>{totalSupply} / {maxTotalSupply}</p>
+            {/* <p>Number of NFT's Left: {tokensLeft}</p> */}
+            <p>One BRN costs {price} Ether</p>
+            <p>Excluding gas fees</p>
             <MintButton totalSupply={totalSupply} tokensLeft={tokensLeft} onTotalSupplyChange={onTotalSupplyChange} onTokensLeftChange={onTokensLeftChange}/>
           </div>
           :

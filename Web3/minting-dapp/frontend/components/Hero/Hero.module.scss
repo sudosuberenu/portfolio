@@ -13,8 +13,9 @@
     border-radius: 10px 0 10px 10px;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: column;
+    box-shadow: 0 8px 6px -6px black;
   }
 }
 
