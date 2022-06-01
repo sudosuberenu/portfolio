@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState } from 'react';
 import { ethers } from 'ethers';
 
 import { getContract } from '../../config/index.js';
-import Button from '../Button/Button.jsx';
+import MintButton from '../MintButton/MintButton.jsx';
 import styles from './Hero.module.scss';
 
 export default function Hero({account, provider}) {
@@ -10,6 +10,7 @@ export default function Hero({account, provider}) {
   const [totalSupply, setTotalSupply] = useState();
   const [tokensLeft, setTokensLeft] = useState();
   const [firtsActive, setFirtsActive] = useState(true);
+  const [userTokens, setUserTokens] = useState();
 
   const classNameFirtItem = firtsActive
         ? styles.nav__item + ' ' + styles['nav__item--first']
@@ -37,17 +38,33 @@ export default function Hero({account, provider}) {
     }
   }, [provider]);
 
-  function onTotalSupplyChange(newValue) {   
-    setTotalSupply(newValue);
+  const getUserTokens = useCallback(async function() {
+    const contract = await getContract(provider, account);
+    if (contract) {
+      const currentUserTokens = await contract.walletOfOwner(account);
+      setUserTokens(currentUserTokens);
+    }
+  }, [provider]);
+
+  function onTotalSupplyChange(value) {   
+    setTotalSupply(value);
   }
 
-  const toggle = (value, event) => {
+  function onTokensLeftChange(value) {   
+    setTokensLeft(value);
+  }
+
+  const toggle = (value) => {
     setFirtsActive(value);
+    if (!value) {
+      getUserTokens();
+    }
   }
 
   useEffect(() => {
     getPrice();
     getTotalSupply();
+    getUserTokens();
   }, [provider]);
 
   return (
@@ -62,9 +79,9 @@ export default function Hero({account, provider}) {
         firtsActive ?
           <div className={styles.hero__body}>
             <p>NFT Price: {price} Ether</p>
-            <p> Total Supply: {totalSupply}</p>
-            <p> Number of NFT's Left: {tokensLeft}</p>
-            <Button totalSupply={totalSupply} onTotalSupplyChange={onTotalSupplyChange}/>
+            <p>Total Supply: {totalSupply}</p>
+            <p>Number of NFT's Left: {tokensLeft}</p>
+            <MintButton totalSupply={totalSupply} tokensLeft={tokensLeft} onTotalSupplyChange={onTotalSupplyChange} onTokensLeftChange={onTokensLeftChange}/>
           </div>
           :
           <></>
@@ -73,6 +90,15 @@ export default function Hero({account, provider}) {
         !firtsActive ?
           <div className={styles.hero__body}>
             <p>YOUR COLLECTION</p>
+            <ul>
+              {
+                userTokens.map(token => {
+                  const tokenId = ethers.BigNumber.from(token).toNumber();
+                  return <li key={tokenId}>{tokenId}</li>
+                })
+              }
+              
+            </ul>
           </div>
           :
           <></>

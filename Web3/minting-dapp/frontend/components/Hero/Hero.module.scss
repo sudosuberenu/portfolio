@@ -29,11 +29,13 @@
     background-color: white;
     
     &:hover {
-      background-color: beige;
+      background-color: #C5DBF8;
+      color: white;
     }
 
     &--deactive {
-      background: rgb(191, 191, 191);
+      color: white;
+      background: rgb(83, 83, 83);
     }
 
     &--first {

@@ -7,7 +7,7 @@ import BerenuABI from '../abis/Berenu.json';
 const ETHEREUM_MAINNET_NETWORK_ID = 1;
 const ETHEREUM_LOCAHOST_NETWORK_ID = 1337;
 
-const NFT_ADDRESS = "0x8e2Ba46B939bf3C5Ebb51B7C18f438AB3b0c5a38";
+const NFT_ADDRESS = "0xA369b1E73AAb9B4CC837C2B2442e0725e38Ff63E";
 const NFT_ABI = BerenuABI.abi;
 
 export const connector = new InjectedConnector({

@@ -3,9 +3,9 @@ import { ethers } from 'ethers';
 
 import { getContract } from '../../config/index.js';
 
-import styles from './Button.module.scss';
+import styles from './MintButton.module.scss';
 
-export default function Button({totalSupply, onTotalSupplyChange}) {
+export default function MintButton({totalSupply, onTotalSupplyChange, tokensLeft, onTokensLeftChange}) {
   const {
     library,
     account,
@@ -16,13 +16,15 @@ export default function Button({totalSupply, onTotalSupplyChange}) {
       const contract = await getContract(library, account);
       await contract.mint({from: account, value: ethers.utils.parseEther("0.1")});
       const newTotalSupply = totalSupply + 1;
+      const newTokensLeft = tokensLeft - 1;
       onTotalSupplyChange(newTotalSupply);
+      onTokensLeftChange(newTokensLeft);
     } catch (error) {
       console.log(error)
     }
   }
   
   return (
-    <button className={styles.Button} onClick={mint}>Mint</button>
+    <button className={styles.MintButton} onClick={mint} disabled={tokensLeft === 0} >Mint</button>
   )
 }
