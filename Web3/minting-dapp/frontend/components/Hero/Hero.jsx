@@ -2,7 +2,10 @@ import { useEffect, useCallback, useState } from 'react';
 import { ethers } from 'ethers';
 
 import { getContract } from '../../config/index.js';
+
 import MintButton from '../MintButton/MintButton.jsx';
+import MyCollection from '../MyCollection/MyCollection.jsx';
+
 import styles from './Hero.module.scss';
 
 export default function Hero({account, provider}) {
@@ -74,7 +77,7 @@ export default function Hero({account, provider}) {
       <div className={styles.hero__header}>
         <ul className={styles.nav} role="tablist">
           <li className={classNameFirtItem} onClick={ () => {toggle(true)}}>Mint</li>
-          <li className={classNameSecondItem} onClick={ () => {toggle(false)}}>Your NFT's</li>
+          <li className={classNameSecondItem} onClick={ () => {toggle(false)}}>My collection</li>
         </ul>
       </div>
       {
@@ -92,16 +95,7 @@ export default function Hero({account, provider}) {
       {
         !firtsActive ?
           <div className={styles.hero__body}>
-            <p>YOUR COLLECTION</p>
-            <ul>
-              {
-                userTokens.map(token => {
-                  const tokenId = ethers.BigNumber.from(token).toNumber();
-                  return <li key={tokenId}>{tokenId}</li>
-                })
-              }
-              
-            </ul>
+            <MyCollection tokens={userTokens}></MyCollection>
           </div>
           :
           <></>
