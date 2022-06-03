@@ -1,34 +1,40 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import axios from 'axios';
+import Image from 'next/image'
+// import axios from 'axios';
 
 import styles from './NftCard.module.scss';
-
 import { getContract } from '../../config/index.js';
 
 export default function NftCard({id}) {
   const { library, account } = useWeb3React();
 
-  const [image, setImage] = useState(null);
-
-  const getTokenUri = useCallback(async function() {
+  const getNFTMetadata = useCallback(async function() {
     const contract = await getContract(library, account);
     const tokenURI = await contract.tokenURI(id);
-    console.log('tokenURI', tokenURI);
+    // const response = await axios.get(tokenURI);
 
-    const response = await axios.get(tokenURI);
-    console.log('response', response);
   });
+
+  const myLoader = ({ src }) => {
+    return `/assets/nfts/${src}`;
+  }
 
   useEffect(() => {
     if (library) {
-      getTokenUri();
+      getNFTMetadata();
     }
   }, [library]);
 
   return (
     <div className={styles.NftCard} key={id}>
-      {/* <img src={image} alt="Avatar" style="width:100%" /> */}
+      <Image
+        loader={myLoader}
+        src={`${id}.png`}
+        alt="Picture of the author"
+        width={230}
+        height={230}
+      />
       <div className={styles.NftCard__container}>
         <h3>Hello</h3>
         <p>I am ...</p>
