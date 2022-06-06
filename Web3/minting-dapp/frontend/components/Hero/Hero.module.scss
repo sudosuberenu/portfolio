@@ -1,5 +1,7 @@
 .hero {
   color: black;
+  position: absolute;
+  top: 14rem;
   
   &__header {
   }
@@ -7,14 +9,8 @@
   &__body {
     background-color: white;
     width: 60vw;
-    height: 50vh;
-
     padding:1rem;
     border-radius: 10px 0 10px 10px;
-
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
     box-shadow: 0 8px 6px -6px black;
   }
 }

@@ -1,0 +1,12 @@
+{
+  "name": "Number #0002",
+  "symbol": "BRN",
+  "description": "Clay Friends is a 5000 piece generative collection by Trent Shy that is made from 100% real clay. Blending meticulously hand-crafted works of art with a one-of-a-kind community experience, Clay Friends represents the unity of web3 and world class artistry.",
+  "image": "2.png",
+  "attributes": [
+      {"trait_type": "hat", "value": "1"},
+      {"trait_type": "eyes", "value": "1"}, 
+      {"trait_type": "mouth", "value": "1"},
+      {"trait_type": "body", "value": "1"}
+  ]
+}

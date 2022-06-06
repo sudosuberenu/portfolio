@@ -80,26 +80,26 @@ export default function Hero({account, provider}) {
           <li className={classNameSecondItem} onClick={ () => {toggle(false)}}>My collection</li>
         </ul>
       </div>
+      <div className={styles.hero__body}>
       {
         firtsActive ?
-          <div className={styles.hero__body}>
+          <section>
             <p>{totalSupply} / {maxTotalSupply}</p>
             {/* <p>Number of NFT's Left: {tokensLeft}</p> */}
             <p>One BRN costs {price} Ether</p>
             <p>Excluding gas fees</p>
             <MintButton totalSupply={totalSupply} tokensLeft={tokensLeft} onTotalSupplyChange={onTotalSupplyChange} onTokensLeftChange={onTokensLeftChange}/>
-          </div>
-          :
-          <></>
+          </section>
+        :
+        <></>
       }
       {
         !firtsActive ?
-          <div className={styles.hero__body}>
-            <MyCollection tokens={userTokens}></MyCollection>
-          </div>
+          <MyCollection tokens={userTokens}></MyCollection>
           :
           <></>
       }
+      </div>
     </section>
   )
 }

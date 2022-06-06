@@ -3,18 +3,14 @@ import { useWeb3React } from '@web3-react/core';
 
 import { connector } from '../config/index.js';
 
-import styles from './HomePage.module.scss'
-
 import Title from '../components/Title/Title.jsx';
-import Hero from '../components/Hero/Hero.jsx';
+import Body from '../components/Body/Body.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 
 export default function HomePage() {
   const {
     activate, 
     active,
-    library,
-    account
   } = useWeb3React();
 
   const connect = useCallback(() => {
@@ -29,9 +25,7 @@ export default function HomePage() {
   return (
     <>
       <Title></Title>
-      <div className={styles.HomePage}>
-        <Hero account={account} provider={library}></Hero>
-      </div>
+      <Body></Body>
       <Footer></Footer>
     </>
   )

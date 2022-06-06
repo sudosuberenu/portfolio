@@ -1,4 +1,8 @@
 .MyCollection {
   display: flex;
   justify-content: space-evenly;
+  // flex-wrap: wrap;
+
+  max-height: 60vh;
+  overflow: hidden;
 }
