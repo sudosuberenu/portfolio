@@ -25,6 +25,6 @@ export default function MintButton({totalSupply, onTotalSupplyChange, tokensLeft
   }
   
   return (
-    <button className={styles.MintButton} onClick={mint} disabled={tokensLeft === 0} >Mint</button>
+    <button className={'button button--big' + ' ' + styles.MintButton} onClick={mint} disabled={tokensLeft === 0} >Mint</button>
   )
 }

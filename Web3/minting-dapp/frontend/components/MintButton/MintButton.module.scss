@@ -1,18 +1,3 @@
 .MintButton {
-  font-size: 1.5rem;
-  padding: 1rem;
-  color: white;
-  background: #5041F7;
-  border: 3px solid white;
-  border-radius: 16px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #8f88d9;
-  }
-
-  &:disabled {
-    background-color: #d5d5d5;
-    cursor: not-allowed; 
-  }
+  
 }

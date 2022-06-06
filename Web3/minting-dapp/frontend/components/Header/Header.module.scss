@@ -1,12 +1,16 @@
-.Title {
+.Header {
   background-color: white;
+  color: black;
+
   min-height: 5vh;
   font-size: 3rem;
   padding: 1rem;
 
   display: flex;
-  text-align: center;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+
+  & .account {
+    font-size: 0.5rem;
+  }
 }
