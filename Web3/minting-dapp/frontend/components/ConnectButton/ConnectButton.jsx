@@ -7,13 +7,12 @@ export default function ConnectButton() {
   const {
     activate
   } = useWeb3React();
-  
 
-  const connect = useCallback(() => {
+  const connect = useCallback(async () => {
     activate(connector);
   }, [activate]);
 
   return (
-    <button className='button button--medium connect__button' onClick={connect}>Connect</button>
+    <button className='button button--medium connect__button' onClick={connect}>Connect Wallet</button>
   );
 }

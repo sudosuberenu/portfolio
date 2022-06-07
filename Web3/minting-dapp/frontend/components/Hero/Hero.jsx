@@ -78,7 +78,7 @@ export default function Hero({account, provider}) {
     getPrice();
     getTotalSupply();
     getUserTokens();
-  }, [provider]);
+  }, [provider, active]);
 
   return (
     <section className={styles.hero}>
