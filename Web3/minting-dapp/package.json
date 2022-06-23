@@ -11,13 +11,17 @@
   "dependencies": {
     "@ethersproject/bignumber": "^5.6.2",
     "@ethersproject/providers": "^5.6.8",
-    "@web3-react/core": "^6.1.9",
+    "@openzeppelin/contracts": "^4.6.0",
+    "@web3-react/core": "^8.0.33-beta.0",
     "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/metamask": "^8.0.26-beta.0",
+    "@web3-react/store": "^8.0.0-beta.0",
     "axios": "^0.27.2",
     "ethers": "^5.6.8",
     "next": "12.1.6",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "solc": "^0.8.15"
   },
   "devDependencies": {
     "sass": "^1.52.1"

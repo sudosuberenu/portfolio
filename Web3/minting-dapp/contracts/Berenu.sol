@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+pragma solidity 0.8.15;
 
-import "openzeppelin-solidity/contracts/access/Ownable.sol";
-import "openzeppelin-solidity/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
 contract Berenu is ERC721Enumerable, Ownable {
   
@@ -14,7 +14,6 @@ contract Berenu is ERC721Enumerable, Ownable {
   
   constructor(string memory _name, string memory _symbol) ERC721 (_name, _symbol) {
     currentSupply = 0;
-    // baseURI = _baseURI;
   }
 
   function mint() external payable {
@@ -24,5 +23,17 @@ contract Berenu is ERC721Enumerable, Ownable {
     currentSupply += 1;
 
     _mint(msg.sender, currentSupply);
+  }
+
+  function walletOfOwner(address owner) external view returns (uint256[] memory) {
+    uint256 tokenCount = balanceOf(owner);
+
+    uint256[] memory tokensId = new uint256[](tokenCount);
+    
+    for (uint256 i = 0; i < tokenCount; i++) {
+      tokensId[i] = tokenOfOwnerByIndex(owner, i);
+    }
+
+    return tokensId;
   }
 }
