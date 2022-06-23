@@ -7,13 +7,13 @@ import styles from './MintButton.module.scss';
 
 export default function MintButton({totalSupply, onTotalSupplyChange, tokensLeft, onTokensLeftChange}) {
   const {
-    library,
+    provider,
     account,
   } = useWeb3React();
 
   const mint = async () => {
     try {
-      const contract = await getContract(library, account);
+      const contract = await getContract(provider, account);
       await contract.mint({from: account, value: ethers.utils.parseEther("0.1")});
       const newTotalSupply = totalSupply + 1;
       const newTokensLeft = tokensLeft - 1;
