@@ -6,14 +6,18 @@ import styles from './Body.module.scss'
 
 export default function Body() {
   const {
-    library,
-    account
+    isActive
   } = useWeb3React();
 
   return (
-    <div className={styles.Body}>
-      <Hero account={account} provider={library}></Hero>
-    </div>
+    <main className={styles.Body}>
+     {
+      // isActive ?
+        <Hero></Hero>
+      //  :
+        // <div>Not connected</div> 
+     }
+    </main>
   );
   
 }

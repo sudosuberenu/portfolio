@@ -10,7 +10,7 @@ import MyCollection from '../MyCollection/MyCollection.jsx';
 
 import styles from './Hero.module.scss';
 
-export default function Hero({account, provider}) {
+export default function Hero() {
   const [price, setPrice] = useState();
   const [maxTotalSupply, setMaxTotalSupply] = useState();
   const [totalSupply, setTotalSupply] = useState();
@@ -19,7 +19,11 @@ export default function Hero({account, provider}) {
   const [userTokens, setUserTokens] = useState();
 
   const {
-    active,
+    isActive,
+    connector,
+    provider,
+    accounts,
+    account,
   } = useWeb3React();
 
   const classNameFirtItem = firtsActive
@@ -33,31 +37,37 @@ export default function Hero({account, provider}) {
   const classNameDisabledItem = styles.nav__item + ' ' + styles['nav__item--last'] + ' ' + styles['nav__item--disabled'] + ' ' + styles['nav__item--deactive']; 
 
   const getPrice = useCallback(async function() {
-    const contract = await getContract(provider, account);
-    if (contract) {
-      const result = await contract.price();
-      setPrice(result/1e18);
+    if (isActive) {
+      const contract = await getContract(provider);
+      if (contract) {
+        const result = await contract.price();
+        setPrice(result/1e18);
+      }
     }
-  }, [provider]);
+  }, [isActive]);
 
   const getTotalSupply = useCallback(async function() {
-    const contract = await getContract(provider, account);
-    if (contract) {
-      const currentTotalSuppply = await contract.totalSupply();
-      const currentMaxSupply = await contract.maxSupply();
-      setTotalSupply(ethers.BigNumber.from(currentTotalSuppply).toNumber());
-      setMaxTotalSupply(ethers.BigNumber.from(currentMaxSupply).toNumber());
-      setTokensLeft(ethers.BigNumber.from(currentMaxSupply).toNumber() - ethers.BigNumber.from(currentTotalSuppply).toNumber());
+    if (isActive) {
+      const contract = await getContract(provider);
+      if (contract) {
+        const currentTotalSuppply = await contract.totalSupply();
+        const currentMaxSupply = await contract.maxSupply();
+        setTotalSupply(ethers.BigNumber.from(currentTotalSuppply).toNumber());
+        setMaxTotalSupply(ethers.BigNumber.from(currentMaxSupply).toNumber());
+        setTokensLeft(ethers.BigNumber.from(currentMaxSupply).toNumber() - ethers.BigNumber.from(currentTotalSuppply).toNumber());
+      }
     }
-  }, [provider]);
+  }, [isActive]);
 
   const getUserTokens = useCallback(async function() {
-    const contract = await getContract(provider, account);
-    if (contract) {
-      const currentUserTokens = await contract.walletOfOwner(account);
-      setUserTokens(currentUserTokens);
+    if (isActive) {
+      const contract = await getContract(provider);
+      if (contract) {
+        const currentUserTokens = await contract.walletOfOwner(account);
+        setUserTokens(currentUserTokens);
+      }
     }
-  }, [provider]);
+  }, [isActive]);
 
   function onTotalSupplyChange(value) {   
     setTotalSupply(value);
@@ -78,7 +88,7 @@ export default function Hero({account, provider}) {
     getPrice();
     getTotalSupply();
     getUserTokens();
-  }, [provider, active]);
+  }, [connector, isActive]);
 
   return (
     <section className={styles.hero}>
@@ -86,7 +96,7 @@ export default function Hero({account, provider}) {
         <ul className={styles.nav} role="tablist">
           <li className={classNameFirtItem} onClick={ () => {toggle(true)}}>Mint</li>
           {
-            active ?
+            isActive ?
               <li className={classNameSecondItem} onClick={ () => {toggle(false)}}>My collection</li>
               :
               <li className={classNameDisabledItem}>My collection</li>
@@ -98,7 +108,7 @@ export default function Hero({account, provider}) {
         firtsActive ?
           <section>
             {
-              active ?
+              isActive ?
               <>
                 <p>{totalSupply} / {maxTotalSupply}</p>
                 {/* <p>Number of NFT's Left: {tokensLeft}</p> */}
