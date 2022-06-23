@@ -8,10 +8,15 @@ export default function MyCollection({tokens}) {
   return (
     <section className={styles.MyCollection}>
       {
-        tokens.map(token => {
-          const tokenId = ethers.BigNumber.from(token).toNumber();
-          return <NftCard key={tokenId} id={tokenId}></NftCard>
-        })
+        tokens ?
+          tokens.map(token => {
+            const tokenId = ethers.BigNumber.from(token).toNumber();
+            return <NftCard key={tokenId} id={tokenId}></NftCard>
+          })
+        : 
+          <span>
+            You don't have a NFT yet :)
+          </span>
       }
       
     </section>
