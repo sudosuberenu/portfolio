@@ -1,9 +1,8 @@
-// require("@nomiclabs/hardhat-waffle")
+require("@nomiclabs/hardhat-waffle")
 require("hardhat-gas-reporter");
-// require("./tasks/block-number")
-// require("@nomiclabs/hardhat-etherscan")
-// require("dotenv").config()
 require("solidity-coverage");
+// require("@nomiclabs/hardhat-etherscan");
+// require("dotenv").config();
 
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
 
