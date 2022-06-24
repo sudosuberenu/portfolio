@@ -1,6 +1,5 @@
 import '../styles/globals.scss';
 
-import { getLibrary } from '../config/index.js';
 import { Web3ReactProvider } from '@web3-react/core';
 import { MetaMask } from '@web3-react/metamask';
 

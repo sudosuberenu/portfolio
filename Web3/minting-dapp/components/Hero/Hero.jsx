@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 
-import { getContract } from '../../config/index.js';
+import { getContract } from '../../config/index.ts';
 
 import MintButton from '../MintButton/MintButton.jsx';
 import ConnectButton from '../ConnectButton/ConnectButton.jsx';
@@ -22,7 +22,6 @@ export default function Hero() {
     isActive,
     connector,
     provider,
-    accounts,
     account,
   } = useWeb3React();
 
@@ -69,6 +68,12 @@ export default function Hero() {
     }
   }, [isActive]);
 
+  useEffect(function () {
+    if (!isActive) {
+      setFirtsActive(true);
+    }
+  }, [isActive])
+
   function onTotalSupplyChange(value) {   
     setTotalSupply(value);
   }
@@ -111,7 +116,6 @@ export default function Hero() {
               isActive ?
               <>
                 <p>{totalSupply} / {maxTotalSupply}</p>
-                {/* <p>Number of NFT's Left: {tokensLeft}</p> */}
                 <p>One BRN costs {price} Ether</p>
                 <p>Excluding gas fees</p>
                 <MintButton totalSupply={totalSupply} tokensLeft={tokensLeft} onTotalSupplyChange={onTotalSupplyChange} onTokensLeftChange={onTokensLeftChange}/>

@@ -3,20 +3,20 @@ import { useWeb3React } from '@web3-react/core';
 import Image from 'next/image';
 import axios from 'axios';
 
+import { getContract } from '../../config/index.ts';
+
 import styles from './NftCard.module.scss';
-import { getContract } from '../../config/index.js';
 
 export default function NftCard({id}) {
-  const { library, account } = useWeb3React();
-  const [ description, setDescription ] = useState();
+  const { provider } = useWeb3React();
+  const [ name, setName ] = useState();
 
   const getNFTMetadata = useCallback(async function() {
-    const contract = await getContract(library, account);
+    const contract = await getContract(provider);
     const tokenURI = await contract.tokenURI(id) || `./assets/nfts/${id}.json`;
     const response = await axios.get(tokenURI);
 
-    setDescription(response?.data?.description);
-
+    setName(response?.data?.name);
   });
 
   const myLoader = ({ src }) => {
@@ -24,10 +24,10 @@ export default function NftCard({id}) {
   }
 
   useEffect(() => {
-    if (library) {
+    if (provider) {
       getNFTMetadata();
     }
-  }, [library]);
+  }, [provider]);
 
   return (
     <div className={styles.NftCard} key={id}>
@@ -39,7 +39,7 @@ export default function NftCard({id}) {
         height={230}
       />
       <div className={styles.NftCard__container}>
-        {description}
+        {name}
       </div>
     </div>
   );
