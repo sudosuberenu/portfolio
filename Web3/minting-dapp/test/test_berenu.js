@@ -44,5 +44,45 @@ describe('Berenu', () => {
       expect(currentBalanceBefore).to.equal(currentBalanceExpectedBefore);
       expect(currentBalanceAfter).to.equal(currentBalanceExpectedAfter);
     });
+
+    it("When trying to mint more than the maxSupply then throw an error", async () => {
+      const value = ethers.utils.parseEther("0.1");
+
+      await berenuContract.mint({ value });
+      await berenuContract.mint({ value });
+      await berenuContract.mint({ value });
+      await berenuContract.mint({ value });
+      await berenuContract.mint({ value });
+
+      await expect(berenuContract.mint({ value })).to.be.revertedWith("All the NFT's have been already minted");
+    });
+
+    it("When trying to mint with a different value then throw an error", async () => {
+      const value = ethers.utils.parseEther("0.01");
+
+      await expect(berenuContract.mint({ value })).to.be.revertedWith("Error, you should send 0.1 Ether");
+    });
+  });
+
+  describe('walletOfOwner', () => {
+    let berenuContract;
+
+    beforeEach(async () => {
+      const berenuContractFactory = await ethers.getContractFactory("Berenu");
+      berenuContract = await berenuContractFactory.deploy("Berenu", "BRN");
+    });
+
+    it("When an owner is given then return his tokenIds", async () => {
+      const [currentOwnerExpectedAfter] = await ethers.getSigners();
+      const value = ethers.utils.parseEther("0.1");
+      const tokenIdsExpected = [1,2];
+
+      await berenuContract.mint({ value });
+      await berenuContract.mint({ value });
+
+      const tokenIds = await berenuContract.walletOfOwner(currentOwnerExpectedAfter.address);
+
+      expect(tokenIds).to.deep.equal(tokenIdsExpected);
+    });
   });
 });
