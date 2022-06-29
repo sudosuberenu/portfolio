@@ -22,19 +22,17 @@ describe('Reentrancy Vulnerability', () => {
     const previousBalanceAttacker = await attackerAccount.provider.getBalance(attackerAccount.address);
     const previousBalanceVunerableSC = await vulnerableContract.provider.getBalance(vulnerableContract.address);
 
-    // // STEP 4. Attack
+    // STEP 4. Attack
     const attackerContractConnected = await attackerContract.connect(attackerAccount);
-    // const tx = await attackerContractConnected.attack({value: ethers.utils.parseEther("1")});
-    await expect(attackerContractConnected.attack({value: ethers.utils.parseEther("1")})).to.be.revertedWith("Fail");
-    // await attackerContractConnected.collect();
+    await attackerContractConnected.attack({value: ethers.utils.parseEther("1")});
+    await attackerContractConnected.collect();
 
-    // // STEP 5. Get the current balance from the Attacker and the Vulnerable SC
+    // STEP 5. Get the current balance from the Attacker and the Vulnerable SC
     const currentBalanceAttacker = await attackerAccount.provider.getBalance(attackerAccount.address);
     const currentBalanceVunerableSC = await vulnerableContract.provider.getBalance(vulnerableContract.address);
 
-
-    console.log(previousBalanceAttacker, currentBalanceAttacker)
-    console.log(previousBalanceVunerableSC, currentBalanceVunerableSC)
-    // expect(previousBalanceAttacker).to.be.equal(currentBalanceAttacker);
+    expect(currentBalanceVunerableSC).to.be.equal(0);
+    expect(currentBalanceVunerableSC).to.not.be.equal(previousBalanceVunerableSC);
+    expect(currentBalanceAttacker).to.be.equal("10001998834765228949388");
   });
 });
