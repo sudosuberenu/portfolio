@@ -50,6 +50,10 @@ Here you can find a Dapp to mint a "borrowed" collection of NFTs.
 🚀 Tech Stack:
 * Frontend: React, Next.js
 * Blockchain API: Ethers.js
+- - -
+
+## 🎉 Last achivements
+<img src="https://github.com/sudosuberenu/portfolio/blob/master/Images/nfts.png"/>
 
 - - -
 
