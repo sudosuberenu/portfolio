@@ -53,7 +53,9 @@ Here you can find a Dapp to mint a "borrowed" collection of NFTs.
 - - -
 
 ## 🎉 Last achivements
+<a href="https://stratosnft.io/0x53504Dd288Ee4BAf4Bf399CC22149724c456b31f">
 <img src="https://github.com/sudosuberenu/portfolio/blob/master/Images/nfts.png"/>
+</a>
 
 - - -
 
