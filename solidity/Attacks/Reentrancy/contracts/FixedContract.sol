@@ -3,9 +3,9 @@ pragma solidity 0.8.15;
 
 error EtherStore__InsufficientFunds();
 
-/**@title A sample of Reentrancy Vulnerability
+/**@title A fix sample of Reentrancy Vulnerability
  * @author Belen Iniesta
- * @notice This contract is to force the Reentrancy Attack
+ * @notice This contract design to avoid a Reentrancy Attack
  */
 contract EtherStore {
 
@@ -15,15 +15,15 @@ contract EtherStore {
     balances[msg.sender] += msg.value;
   }
 
-  function withdraw(uint256 amount) external {
-    if (balances[msg.sender] >= amount) {
+  function withdraw() external {
+    uint256 userBalance = balances[msg.sender];
+
+    if (userBalance == 0) {
       revert EtherStore__InsufficientFunds();
     }
     
-    (bool success,) = msg.sender.call{value: amount}("");
-
-    require(success);
-  
-    balances[msg.sender] -= amount;
+    balances[msg.sender] = 0;
+    (bool success,) = msg.sender.call{ value: userBalance }("");
+    
   }
 }
