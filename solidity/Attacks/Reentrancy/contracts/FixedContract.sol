@@ -8,7 +8,6 @@ error EtherStore__InsufficientFunds();
  * @notice This contract design to avoid a Reentrancy Attack
  */
 contract EtherStore {
-
   mapping(address => uint256) public balances;
 
   function deposit() external payable {
@@ -23,7 +22,8 @@ contract EtherStore {
     }
     
     balances[msg.sender] = 0;
-    (bool success,) = msg.sender.call{ value: userBalance }("");
     
+    (bool success,) = msg.sender.call{ value: userBalance }("");
+    require(success);
   }
 }
