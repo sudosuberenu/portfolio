@@ -2,7 +2,7 @@
 require("@nomicfoundation/hardhat-chai-matchers")
 require("hardhat-gas-reporter");
 require("solidity-coverage");
-// require("hardhat-deploy");
+require("hardhat-deploy");
 // require("@nomiclabs/hardhat-etherscan");
 // require("dotenv").config();
 
@@ -16,6 +16,14 @@ module.exports = {
     localhost: {
       url: "http://localhost:8545",
       chainId: 31337,
+    },
+  },
+  namedAccounts: {
+    deployer: {
+      default: 0
+    },
+    player: {
+      default: 1,
     },
   },
   gasReporter: {
