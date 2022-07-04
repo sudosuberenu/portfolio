@@ -1,7 +1,7 @@
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 
-import { getContract } from '../../config/index.ts';
+import { getContract } from '../../utils/index.ts';
 
 import styles from './MintButton.module.scss';
 

@@ -3,7 +3,7 @@ import { useWeb3React } from '@web3-react/core';
 import Image from 'next/image';
 import axios from 'axios';
 
-import { getContract } from '../../config/index.ts';
+import { getContract } from '../../utils/index.ts';
 
 import styles from './NftCard.module.scss';
 

@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 
-import { getContract } from '../../config/index.ts';
+import { getContract } from '../../utils/index.ts';
 
 import MintButton from '../MintButton/MintButton.jsx';
 import ConnectButton from '../ConnectButton/ConnectButton.jsx';
@@ -11,7 +11,9 @@ import MyCollection from '../MyCollection/MyCollection.jsx';
 import styles from './Hero.module.scss';
 
 export default function Hero() {
+  const [contract, setContract] = useState();
   const [price, setPrice] = useState();
+  const [priceUSD, setPriceUSD] = useState();
   const [maxTotalSupply, setMaxTotalSupply] = useState();
   const [totalSupply, setTotalSupply] = useState();
   const [tokensLeft, setTokensLeft] = useState();
@@ -35,44 +37,41 @@ export default function Hero() {
         
   const classNameDisabledItem = styles.nav__item + ' ' + styles['nav__item--last'] + ' ' + styles['nav__item--disabled'] + ' ' + styles['nav__item--deactive']; 
 
-  const getPrice = useCallback(async function() {
-    if (isActive) {
-      const contract = await getContract(provider);
-      if (contract) {
-        const result = await contract.price();
-        setPrice(result/1e18);
-      }
-    }
-  }, [isActive]);
+  const updateContract = async function()  {
+    const contract = await getContract(provider);
+    setContract(contract);
+  }
 
-  const getTotalSupply = useCallback(async function() {
-    if (isActive) {
-      const contract = await getContract(provider);
-      if (contract) {
-        const currentTotalSuppply = await contract.totalSupply();
-        const currentMaxSupply = await contract.maxSupply();
-        setTotalSupply(ethers.BigNumber.from(currentTotalSuppply).toNumber());
-        setMaxTotalSupply(ethers.BigNumber.from(currentMaxSupply).toNumber());
-        setTokensLeft(ethers.BigNumber.from(currentMaxSupply).toNumber() - ethers.BigNumber.from(currentTotalSuppply).toNumber());
-      }
+  const updatePrice = async function() {
+    if (contract) {
+      const result = await contract.price();
+      setPrice(result/1e18);
     }
-  }, [isActive]);
+  }
 
-  const getUserTokens = useCallback(async function() {
-    if (isActive) {
-      const contract = await getContract(provider);
-      if (contract) {
-        const currentUserTokens = await contract.walletOfOwner(account);
-        setUserTokens(currentUserTokens);
-      }
+  const updatePriceUSD = async function() {
+    if (contract) {
+      const result = await contract.price();
+      setPriceUSD(result/1e18);
     }
-  }, [isActive]);
+  }
 
-  useEffect(function () {
-    if (!isActive) {
-      setFirtsActive(true);
+  const updateTotalSupply = async function() {
+    if (contract) {
+      const currentTotalSuppply = await contract.totalSupply();
+      const currentMaxSupply = await contract.maxSupply();
+      setTotalSupply(ethers.BigNumber.from(currentTotalSuppply).toNumber());
+      setMaxTotalSupply(ethers.BigNumber.from(currentMaxSupply).toNumber());
+      setTokensLeft(ethers.BigNumber.from(currentMaxSupply).toNumber() - ethers.BigNumber.from(currentTotalSuppply).toNumber());
     }
-  }, [isActive])
+  }
+
+  const updateUserTokens = async function() {
+    if (contract) {
+      const currentUserTokens = await contract.walletOfOwner(account);
+      setUserTokens(currentUserTokens);
+    }
+  }
 
   function onTotalSupplyChange(value) {   
     setTotalSupply(value);
@@ -90,10 +89,18 @@ export default function Hero() {
   }
 
   useEffect(() => {
-    getPrice();
-    getTotalSupply();
-    getUserTokens();
+    if (!isActive) {
+      setFirtsActive(true);
+    }
+    updateContract();
   }, [connector, isActive]);
+
+  useEffect(() => {
+    updatePrice();
+    updatePriceUSD();
+    updateTotalSupply();
+    updateUserTokens();
+  }, [contract]);
 
   return (
     <section className={styles.hero}>
@@ -115,8 +122,8 @@ export default function Hero() {
             {
               isActive ?
               <>
-                <p>{totalSupply} / {maxTotalSupply}</p>
-                <p>One BRN costs {price} Ether</p>
+                <p>{totalSupply} / {maxTotalSupply} minted</p>
+                <p>One BRN costs {price} Ether / {priceUSD} USD</p>
                 <p>Excluding gas fees</p>
                 <MintButton totalSupply={totalSupply} tokensLeft={tokensLeft} onTotalSupplyChange={onTotalSupplyChange} onTokensLeftChange={onTokensLeftChange}/>
               </>
