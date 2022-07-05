@@ -15,9 +15,13 @@ contract Berenu is ERC721Enumerable, Ownable {
   uint256 public immutable price = 0.1 ether;
   uint256 public immutable maxSupply = 5;
   
-  constructor(string memory _name, string memory _symbol) ERC721 (_name, _symbol) {
+  constructor(string memory _name, string memory _symbol, address agregatorInterface) ERC721 (_name, _symbol) {
     currentSupply = 0;
-    priceFeed = AggregatorV3Interface(0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);
+    priceFeed = AggregatorV3Interface(agregatorInterface);
+  }
+
+  function setPriceFeed(address agregatorInterface) external onlyOwner {
+    priceFeed = AggregatorV3Interface(agregatorInterface);
   }
 
   function getLatestPrice() public view returns (int) {

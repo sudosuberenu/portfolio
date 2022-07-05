@@ -2,7 +2,7 @@ import { Contract } from 'ethers';
 
 import BerenuABI from '../artifacts/contracts/Berenu.sol/Berenu.json';
 
-const NFT_ADDRESS = process.env.SC_BERENU_ADDRESS || "";
+const NFT_ADDRESS = process.env.SC_BERENU_ADDRESS_RINKEBY || "";
 const NFT_ABI = BerenuABI.abi;
 
 export const getContract = async function(provider) {
