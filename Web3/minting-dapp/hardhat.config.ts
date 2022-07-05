@@ -1,8 +1,9 @@
-// require("@nomiclabs/hardhat-waffle")
-require("@nomicfoundation/hardhat-chai-matchers")
-require("hardhat-gas-reporter");
-require("solidity-coverage");
-require("hardhat-deploy");
+import { accounts, node_url } from './utils/network';
+import 'dotenv/config';
+import "hardhat-deploy";
+import "@nomicfoundation/hardhat-chai-matchers"
+import "hardhat-gas-reporter";
+import "solidity-coverage";
 // require("@nomiclabs/hardhat-etherscan");
 
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
@@ -16,14 +17,13 @@ module.exports = {
       url: "http://localhost:8545",
       chainId: 31337,
     },
+    rinkeby: {
+      url: node_url('rinkeby'),
+      accounts: accounts('rinkeby')
+    }
   },
   namedAccounts: {
-    deployer: {
-      default: 0
-    },
-    player: {
-      default: 1,
-    },
+    deployer: 0
   },
   gasReporter: {
     enabled: true,

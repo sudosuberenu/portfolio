@@ -23,6 +23,7 @@
     "@web3-react/metamask": "^8.0.26-beta.0",
     "@web3-react/store": "^8.0.0-beta.0",
     "axios": "^0.27.2",
+    "currency.js": "^2.0.4-00bc4a32",
     "ethers": "^5.6.8",
     "next": "12.1.6",
     "react": "18.1.0",
@@ -30,14 +31,17 @@
     "typescript": "^4.7.4"
   },
   "devDependencies": {
+    "@chainlink/contracts": "^0.4.1",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.0-beta.3",
     "@nomiclabs/hardhat-ethers": "^2.0.4",
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
     "chai": "^4.3.4",
+    "dotenv": "^16.0.1",
     "hardhat": "^2.8.3",
     "hardhat-deploy": "^0.11.11",
     "hardhat-gas-reporter": "^1.0.7",
     "sass": "^1.52.1",
-    "solidity-coverage": "^0.7.18"
+    "solidity-coverage": "^0.7.18",
+    "ts-node": "^10.8.2"
   }
 }

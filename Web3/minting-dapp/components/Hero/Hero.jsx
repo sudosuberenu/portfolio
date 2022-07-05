@@ -1,6 +1,7 @@
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
+import currency from 'currency.js';
 
 import { getContract } from '../../utils/index.ts';
 
@@ -51,8 +52,8 @@ export default function Hero() {
 
   const updatePriceUSD = async function() {
     if (contract) {
-      const result = await contract.price();
-      setPriceUSD(result/1e18);
+      const result = await contract.getLatestPrice();
+      setPriceUSD(currency(result.toNumber()/1_000_000_000, {fromCents: true, precision: 0}).format());
     }
   }
 
@@ -84,7 +85,7 @@ export default function Hero() {
   const toggle = (value) => {
     setFirtsActive(value);
     if (!value) {
-      getUserTokens();
+      updateUserTokens();
     }
   }
 
@@ -123,7 +124,7 @@ export default function Hero() {
               isActive ?
               <>
                 <p>{totalSupply} / {maxTotalSupply} minted</p>
-                <p>One BRN costs {price} Ether / {priceUSD} USD</p>
+                <p>One BRN costs {price} Ether ({priceUSD} USD)</p>
                 <p>Excluding gas fees</p>
                 <MintButton totalSupply={totalSupply} tokensLeft={tokensLeft} onTotalSupplyChange={onTotalSupplyChange} onTokensLeftChange={onTokensLeftChange}/>
               </>
