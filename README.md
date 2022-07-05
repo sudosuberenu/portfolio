@@ -48,11 +48,15 @@ Here you can find an API Rest Service to read data from [TheGraph](https://thegr
 Here you can find a Dapp to mint a "borrowed" collection of NFTs.
 
 🚀 Tech Stack:
-* Frontend: React, Next.js
-* Blockchain API: Ethers.js
+* Frontend: React, Next.js, Typescript
+* Blockchain API: Ethers.js, Hardhat, Chainlink Oracle
 - - -
 
 ## 🎉 Lastest achivements
+NFT Collection from Patrick Collins Web3 Development
+
+https://stratosnft.io/0x53504Dd288Ee4BAf4Bf399CC22149724c456b31f
+
 <a href="https://stratosnft.io/0x53504Dd288Ee4BAf4Bf399CC22149724c456b31f">
   <img src="https://github.com/sudosuberenu/portfolio/blob/master/Images/nfts.png"/>
 </a>
