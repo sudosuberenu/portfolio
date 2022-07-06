@@ -10,6 +10,12 @@
   align-items: center;
   justify-content: space-around;
 
+  &__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   & .account {
     font-size: 0.5rem;
   }

@@ -8,8 +8,7 @@ import styles from './Header.module.scss';
 export default function Header() {
   const {
     connector,
-    isActive,
-    account,
+    isActive
   } = useWeb3React();
 
 
@@ -23,8 +22,10 @@ export default function Header() {
       {
         isActive &&
         <>
-          <Account account={account}></Account>
-          <button className='button button--medium disconnect__button' onClick={disconnect}>Disconnect</button>
+          <div className={styles.Header__right}>
+            <Account></Account>
+            <button className='button button--medium disconnect__button' onClick={disconnect}>Disconnect</button>
+          </div>
         </>
       }
     </section>

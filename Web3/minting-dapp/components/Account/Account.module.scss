@@ -1,3 +1,11 @@
 .Account {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+  height: 1rem;
   font-size: 1rem;
+  border: 1px solid rgb(172, 172, 172);
+  border-radius: 5px;
+  padding: 1rem;
 }
