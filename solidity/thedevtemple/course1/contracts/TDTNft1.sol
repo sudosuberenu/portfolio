@@ -7,10 +7,10 @@ import "./Whitelist.sol";
 // TDTNft1.sol
 contract TDTNft1 is ERC721URIStorage, Whitelist {
   string public constant TOKEN_URI =
-        "ipfs://";
+        "ipfs://QmSfXqEBGydx2Fxn9MGrPXnAwap7vEQYknoY3A8Fb5xoET";
   uint256 private s_counter;
 
-  constructor() ERC721("The Dev Template NFT - Course 1 - Faucet", "TDT") {
+  constructor() ERC721("The Dev Temple NFT - Course 1 - Faucet", "TDT") {
     s_counter = 0;
   }
 
@@ -20,7 +20,9 @@ contract TDTNft1 is ERC721URIStorage, Whitelist {
     return s_counter;
   }
 
-  function tokenURI(uint256 tokenId) public view override returns (string memory) {
+  function tokenURI(
+    uint256 /* tokenId */
+  ) public view override returns (string memory) {
     return TOKEN_URI;
   }
 
