@@ -1,6 +1,5 @@
 const { ethers } = require("hardhat");
 const { expect } = require("chai");
-const exp = require("constants");
 
 describe('The Dev Template NFT - Course 1 - Faucet', () => {
   it("When a user that is not the owner add a address to whitelist then throw error", async () => {

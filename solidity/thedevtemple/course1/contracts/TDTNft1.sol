@@ -14,10 +14,9 @@ contract TDTNft1 is ERC721URIStorage, Whitelist {
     s_counter = 0;
   }
 
-  function mintNft() public onlyWhitelisted returns (uint256) {
+  function mintNft() external onlyWhitelisted {
     _mint(msg.sender, s_counter);
     s_counter += 1;
-    return s_counter;
   }
 
   function tokenURI(

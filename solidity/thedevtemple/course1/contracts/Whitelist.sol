@@ -15,35 +15,23 @@ contract Whitelist is Ownable {
     _;
   }
 
-  function addAddressToWhitelist(address addr) onlyOwner public returns(bool success) {
+  function addAddressToWhitelist(address addr) onlyOwner public {
     if (!whitelist[addr]) {
       whitelist[addr] = true;
       emit WhitelistedAddressAdded(addr);
-      success = true; 
     }
   }
 
-  function addAddressesToWhitelist(address[] memory addrs) onlyOwner public returns(bool success) {
+  function addAddressesToWhitelist(address[] memory addrs) onlyOwner external {
     for (uint256 i = 0; i < addrs.length; i++) {
-      if (addAddressToWhitelist(addrs[i])) {
-        success = true;
-      }
+      addAddressToWhitelist(addrs[i]);
     }
   }
 
-  function removeAddressFromWhitelist(address addr) onlyOwner public returns(bool success) {
+  function removeAddressFromWhitelist(address addr) onlyOwner external {
     if (whitelist[addr]) {
       whitelist[addr] = false;
       emit WhitelistedAddressRemoved(addr);
-      success = true;
-    }
-  }
-
-  function removeAddressesFromWhitelist(address[] memory addrs) onlyOwner public returns(bool success) {
-    for (uint256 i = 0; i < addrs.length; i++) {
-      if (removeAddressFromWhitelist(addrs[i])) {
-        success = true;
-      }
     }
   }
 
