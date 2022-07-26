@@ -8,6 +8,7 @@ import "@nomiclabs/hardhat-etherscan";
 
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
+const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY || "";
 
 module.exports = {
   solidity: {
@@ -29,6 +30,10 @@ module.exports = {
     rinkeby: {
       url: node_url('rinkeby'),
       accounts: accounts('rinkeby')
+    },
+    matic: {
+      url: "https://polygon-rpc.com/",
+      accounts: [process.env.MNEMONIC_MUMBAI]
     }
   },
   namedAccounts: {
@@ -43,8 +48,10 @@ module.exports = {
     coinmarketcap: COINMARKETCAP_API_KEY,
   },
   etherscan: {
-    apiKey: {
-      rinkeby: ETHERSCAN_API_KEY
-    }
+    // apiKey: {
+    //   rinkeby: ETHERSCAN_API_KEY,
+    //   mumbai: POLYGONSCAN_API_KEY,
+    // }
+    apiKey: process.env.POLYGONSCAN_API_KEY
   }
 }

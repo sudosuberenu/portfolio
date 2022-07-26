@@ -3,7 +3,6 @@ pragma solidity 0.8.15;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-
 contract Whitelist is Ownable {
   mapping(address => bool) public whitelist;
   
@@ -13,13 +12,6 @@ contract Whitelist is Ownable {
   modifier onlyWhitelisted() {
     require(whitelist[msg.sender]);
     _;
-  }
-
-  function addAddressToWhitelist(address addr) onlyOwner public {
-    if (!whitelist[addr]) {
-      whitelist[addr] = true;
-      emit WhitelistedAddressAdded(addr);
-    }
   }
 
   function addAddressesToWhitelist(address[] memory addrs) onlyOwner external {
@@ -35,4 +27,10 @@ contract Whitelist is Ownable {
     }
   }
 
+  function addAddressToWhitelist(address addr) onlyOwner public {
+    if (!whitelist[addr]) {
+      whitelist[addr] = true;
+      emit WhitelistedAddressAdded(addr);
+    }
+  }
 }
