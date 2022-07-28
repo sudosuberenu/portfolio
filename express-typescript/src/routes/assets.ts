@@ -4,7 +4,7 @@ import * as assetsService from '../services/assetsService';
 const router = express.Router()
 
 router.get('/:id/pools', async (req, res) => {
-  const assetId = +req.params.id
+  const assetId = req.params.id
   const pools = await assetsService.getPoolsFromAssetId(assetId)
   
   return pools 
@@ -13,7 +13,7 @@ router.get('/:id/pools', async (req, res) => {
 })
 
 router.get('/:id/volume', async (req, res) => {
-  const assetId = +req.params.id
+  const assetId = req.params.id
   const volume = await assetsService.getVolumeFromAssetIdWithRangeTime(assetId);
   
   return volume

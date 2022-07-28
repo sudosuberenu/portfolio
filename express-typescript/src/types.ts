@@ -5,3 +5,7 @@ export interface Assert {
 export interface Pool {
   id: number
 }
+
+export interface PoolResponse {
+  pools: Pool[]
+}

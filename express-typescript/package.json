@@ -20,17 +20,23 @@
     "typescript": "4.7.4"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "express": "4.18.1"
   },
   "eslintConfig": {
     "parserOptions": {
       "project": "./tsconfig.json"
     },
-    "extends": ["./node_modules/ts-standard/eslintrc.json"],
+    "extends": [
+      "./node_modules/ts-standard/eslintrc.json"
+    ],
     "rules": {
-      "semi": ["error", "never"],
+      "semi": [
+        "error",
+        "never"
+      ],
       "@typescript-eslint/semi": "off",
       "no-unexpected-multiline": "error"
-    } 
+    }
   }
 }

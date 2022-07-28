@@ -11,7 +11,7 @@ app.get('/', (_req, res) => {
   return res.send()
 })
 
-app.use('/v1/assets', assetsRouter)
+app.use('/api/v1/assets', assetsRouter)
 
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`)
