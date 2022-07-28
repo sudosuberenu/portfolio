@@ -3,7 +3,7 @@ import { PoolResponse } from '../types'
 
 const UNISWAP_URL: string = "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt"
 
-export const getPoolsFromAssetId = async (assetId: string): Promise<PoolResponse | undefined> => {
+export const getPoolsFromAssetId = async (assetId: string): Promise<PoolResponse> => {
   const queryToken0 = `{ pools (where: { token0: "${assetId}" }) { id } }`
   const queryToken1 = `{ pools (where: { token1: "${assetId}" }) { id } }`
   let poolResponse: PoolResponse = { pools: [] };
@@ -24,7 +24,7 @@ export const getPoolsFromAssetId = async (assetId: string): Promise<PoolResponse
   return poolResponse
 }
 
-export const getVolumeFromAssetIdWithRangeTime = async (_assetId: string): Promise<Number | undefined> => {
+export const getVolumeFromAssetIdWithRangeTime = async (_assetId: string): Promise<Number> => {
   const volume = 0
   return volume
 }
