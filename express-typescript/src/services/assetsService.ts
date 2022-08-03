@@ -1,30 +1,42 @@
 import axios from 'axios'
+import "reflect-metadata"
+import { injectable } from 'inversify'
 import { PoolResponse } from '../types'
 
-const UNISWAP_URL: string = "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt"
-
-export const getPoolsFromAssetId = async (assetId: string): Promise<PoolResponse> => {
-  const queryToken0 = `{ pools (where: { token0: "${assetId}" }) { id } }`
-  const queryToken1 = `{ pools (where: { token1: "${assetId}" }) { id } }`
-  let poolResponse: PoolResponse = { pools: [] };
-  
-  try {
-    const promiseToken0 = axios.post(UNISWAP_URL, {query: queryToken0})
-    const promiseToken1 = axios.post(UNISWAP_URL, {query: queryToken1})
-
-    const results = await Promise.all([promiseToken0, promiseToken1])
-    
-    results.map(result => {
-      poolResponse.pools = [...poolResponse.pools, ...result.data.data.pools]
-    });
-  } catch (error) {
-    console.error(error)
-  }
- 
-  return poolResponse
+interface IAssetsService {
+  getPoolsFromAssetId(assetId: string): Promise<PoolResponse>,
+  getVolumeFromAssetIdWithRangeTime(assetId: string): Promise<Number>
 }
 
-export const getVolumeFromAssetIdWithRangeTime = async (_assetId: string): Promise<Number> => {
-  const volume = 0
-  return volume
+@injectable()
+export class AssetsService implements IAssetsService {
+  private readonly uniswapUrl: string = "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt"
+
+  constructor() {}
+
+  public async getPoolsFromAssetId(assetId: string): Promise<PoolResponse> {
+    const queryToken0: string = `{ pools (where: { token0: "${assetId}" }) { id } }`
+    const queryToken1: string = `{ pools (where: { token1: "${assetId}" }) { id } }`
+    let poolResponse: PoolResponse = { pools: [] };
+    
+    try {
+      const promiseToken0: Promise<any> = axios.post(this.uniswapUrl, {query: queryToken0})
+      const promiseToken1: Promise<any> = axios.post(this.uniswapUrl, {query: queryToken1})
+  
+      const results = await Promise.all([promiseToken0, promiseToken1])
+      
+      results.map(result => {
+        poolResponse.pools = [...poolResponse.pools, ...result.data.data.pools]
+      });
+    } catch (error) {
+      console.error(error)
+    }
+   
+    return poolResponse
+  }
+
+  public async getVolumeFromAssetIdWithRangeTime(_assetId: string): Promise<Number> {
+    const volume: Number = 0
+    return volume
+  }
 }

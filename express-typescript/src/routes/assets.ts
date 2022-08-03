@@ -1,7 +1,8 @@
 import express from 'express'
-import * as assetsService from '../services/assetsService';
+import { AssetsService } from '../services/assetsService';
 
 const router = express.Router()
+const assetsService = new AssetsService();
 
 router.get('/:id/pools', async (req, res) => {
   const assetId = req.params.id

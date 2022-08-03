@@ -2,10 +2,9 @@ import express from 'express'
 import assetsRouter from './routes/assets'
 
 const app = express()
+const PORT = 3000
 
 app.use(express.json())
-
-const PORT = 3000
 
 app.get('/', (_req, res) => {
   return res.send()
