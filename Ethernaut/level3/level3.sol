@@ -3,41 +3,34 @@ pragma solidity ^0.6.0;
 
 import '@openzeppelin/contracts/math/SafeMath.sol';
 
-contract Fallout {
-  
+contract CoinFlip {
+
   using SafeMath for uint256;
-  mapping (address => uint) allocations;
-  address payable public owner;
+  uint256 public consecutiveWins;
+  uint256 lastHash;
+  uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;
 
-
-  /* constructor */
-  function Fal1out() public payable {
-    owner = msg.sender;
-    allocations[owner] = msg.value;
+  constructor() public {
+    consecutiveWins = 0;
   }
 
-  modifier onlyOwner {
-	        require(
-	            msg.sender == owner,
-	            "caller is not the owner"
-	        );
-	        _;
-	    }
+  function flip(bool _guess) public returns (bool) {
+    uint256 blockValue = uint256(blockhash(block.number.sub(1)));
 
-  function allocate() public payable {
-    allocations[msg.sender] = allocations[msg.sender].add(msg.value);
-  }
+    if (lastHash == blockValue) {
+      revert();
+    }
 
-  function sendAllocation(address payable allocator) public {
-    require(allocations[allocator] > 0);
-    allocator.transfer(allocations[allocator]);
-  }
+    lastHash = blockValue;
+    uint256 coinFlip = blockValue.div(FACTOR);
+    bool side = coinFlip == 1 ? true : false;
 
-  function collectAllocations() public onlyOwner {
-    msg.sender.transfer(address(this).balance);
-  }
-
-  function allocatorBalance(address allocator) public view returns (uint) {
-    return allocations[allocator];
+    if (side == _guess) {
+      consecutiveWins++;
+      return true;
+    } else {
+      consecutiveWins = 0;
+      return false;
+    }
   }
 }
