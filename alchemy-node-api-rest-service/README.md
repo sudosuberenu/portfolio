@@ -5,11 +5,11 @@ This application has 2 responsabilities:
 
 1. Fetch and store tx data block per block to a local MySQL database from an Alchemy node using a ws connection and an API REST to run it.
 
-![job-diagram](https://github.com/sudosuberenu/portfolio/blob/main/Images/job-diagram.jpg?raw=true)
+![job-diagram](https://github.com/sudosuberenu/portfolio/blob/master/Images/job-diagram.jpg?raw=true)
 
 2. Serves txs and balances data from an Alchemy node using an API REST.
 
-![api-diagram](https://github.com/sudosuberenu/portfolio/blob/main/Images/api-diagram.jpg?raw=true)
+![api-diagram](https://github.com/sudosuberenu/portfolio/blob/master/Images/api-diagram.jpg?raw=true)
 
 # Alchemy api-rest service
 This project exposes 4 different endpoints to read data from Ethereum Blockchain via an Alchemy node.
