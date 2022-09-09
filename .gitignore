@@ -5,12 +5,15 @@
 .pnp.js
 .next/
 
+# logs
+*/logs
+
 # testing
 /coverage
 coverage.json
 
 # production
-/build
+*/build
 
 # misc
 .DS_Store
