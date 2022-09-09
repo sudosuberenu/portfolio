@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tx {
+  txhash      String    @id @db.Char(66)
+  blocknum    BigInt
+  fromaccount String    @db.Char(42)
+  toaccount   String?   @db.Char(42)
+  createdAt   DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model request {
+  id        Int       @id @default(autoincrement())
+  apiKey    String    @db.Char(42)
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt DateTime? @default(now()) @db.Timestamp(0)
+
+  @@index([apiKey], map: "apikey_index")
+}
